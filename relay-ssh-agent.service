@@ -2,4 +2,4 @@
 WantedBy=default.target
 
 [Service]
-ExecStart=$HOME/.local/relay-ssh-agent.sh
+ExecStart=%h/.local/relay-ssh-agent.sh
