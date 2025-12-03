@@ -1,0 +1,5 @@
+[Service]
+ExecStart=socat 'EXEC:npiperelay.exe -p //./pipe/openssh-ssh-agent' UNIX-LISTEN:${SSH_AUTH_SOCK}
+
+[Install]
+WantedBy=default.target
