@@ -16,7 +16,7 @@ Environment="PATH=$PATH"
 ExecStart=socat "EXEC:npiperelay.exe -p //./pipe/openssh-ssh-agent" "UNIX-LISTEN:\${XDG_RUNTIME_DIR}/ssh-agent.socket"
 EOF
 
-cat <<EOF | sudo tee /etc/profile.d/ssh-agent.sh
+cat <<'EOF' | sudo tee /etc/profile.d/ssh-agent.sh
 if [ -n "$XDG_RUNTIME_DIR" ]; then
     export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}ssh-agent.socket"
 fi
