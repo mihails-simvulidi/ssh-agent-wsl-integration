@@ -1,6 +1,5 @@
 [Service]
-Environment=SSH_AUTH_SOCK=/run/ssh-agent.socket
-ExecStart=socat 'EXEC:npiperelay.exe -p //./pipe/openssh-ssh-agent' UNIX-LISTEN:${SSH_AUTH_SOCK}
+ExecStart=socat 'EXEC:npiperelay.exe -p //./pipe/openssh-ssh-agent' UNIX-LISTEN:${XDG_RUNTIME_DIR}/ssh-agent.socket
 
 [Install]
 WantedBy=default.target
