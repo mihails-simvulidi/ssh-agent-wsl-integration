@@ -1,6 +1,6 @@
 # PURPOSE
 
-Makes Windows SSH agent (e. g. Bitwarden) available in Windows Subsystem for Linux (Debian-based)
+Makes Windows SSH agent (e. g. Bitwarden) available in Windows Subsystem for Linux (Debian-based).
 
 # INSTALL
 
