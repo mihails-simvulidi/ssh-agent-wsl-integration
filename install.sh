@@ -2,8 +2,8 @@
 set -e
 scriptdir=$(dirname "$0")
 
-apt-get install -y socat
+sudo apt-get install -y socat
 winget.exe install -e --id jstarks.npiperelay
-install "$scriptdir/set-ssh-agent.sh" /etc/profile.d/
-install "$scriptdir/relay-ssh-agent.service" /etc/systemd/system/
-systemctl daemon-reload
+sudo install "$scriptdir/set-ssh-agent.sh" /etc/profile.d/
+sudo install "$scriptdir/relay-ssh-agent.service" /etc/systemd/system/
+sudo systemctl daemon-reload
