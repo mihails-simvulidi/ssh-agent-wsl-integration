@@ -1,5 +1,0 @@
-[Install]
-WantedBy=default.target
-
-[Service]
-ExecStart=%h/.local/relay-ssh-agent.sh
