@@ -13,7 +13,7 @@ WantedBy=default.target
 
 [Service]
 Environment="PATH=$PATH"
-ExecStart=socat "EXEC:npiperelay.exe -p //./pipe/openssh-ssh-agent" "UNIX-LISTEN:\${XDG_RUNTIME_DIR}/ssh-agent.socket"
+ExecStart=socat "EXEC:npiperelay.exe -p //./pipe/openssh-ssh-agent" "UNIX-LISTEN:\${XDG_RUNTIME_DIR}/ssh-agent.socket,fork"
 EOF
 
 cat <<'EOF' | sudo tee /etc/profile.d/ssh-agent.sh >/dev/null
