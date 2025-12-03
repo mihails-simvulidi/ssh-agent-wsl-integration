@@ -5,7 +5,6 @@ systemddir=~/.config/systemd/user
 
 sudo apt-get install -y socat
 winget.exe install -e --id jstarks.npiperelay || true
-sudo install "$repodir/set-ssh-agent.sh" /etc/profile.d/
 mkdir -p "$systemddir"
 
 cat <<EOF >$systemddir/relay-ssh-agent.service
