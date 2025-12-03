@@ -7,3 +7,4 @@ winget.exe install -e --id jstarks.npiperelay || true
 sudo install "$scriptdir/set-ssh-agent.sh" /etc/profile.d/
 sudo install "$scriptdir/relay-ssh-agent.service" /etc/systemd/system/
 sudo systemctl daemon-reload
+sudo systemctl enable --now relay-ssh-agent.service
