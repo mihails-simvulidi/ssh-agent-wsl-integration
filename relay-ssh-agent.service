@@ -1,5 +1,5 @@
-[Service]
-ExecStart=socat 'EXEC:npiperelay.exe -p //./pipe/openssh-ssh-agent' UNIX-LISTEN:${XDG_RUNTIME_DIR}/ssh-agent.socket
-
 [Install]
 WantedBy=default.target
+
+[Service]
+ExecStart=~/.local/relay-ssh-agent.sh
