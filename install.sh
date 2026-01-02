@@ -2,7 +2,7 @@
 set -e
 
 systemddir=~/.config/systemd/user
-sudo apt-get install -y socat
+sudo apt-get install --no-install-recommends -y socat
 winget.exe install -e --id jstarks.npiperelay || true
 mkdir -p "$systemddir"
 
