@@ -12,13 +12,12 @@ source "$SCRIPT_DIR/escape-utils.sh"
 
 MAX_CODE="${1:-255}"
 SOCKET_PATH="${2:-/tmp/socat-escape-e2e-${UID}.sock}"
-TEST_DIR="test/escaping-e2e"
+TEST_DIR="$(mktemp -d)"
 SYSTEMD_USER_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 SYSTEMD_PREFIX="socat-escape-e2e"
 SYSTEMD_RUNTIME_DIR="/tmp/${SYSTEMD_PREFIX}-${UID}"
 KEEP_ARTIFACTS="${KEEP_ARTIFACTS:-0}"
 PARALLEL_JOBS="${PARALLEL_JOBS:-8}"
-WORK_DIR="$PWD"
 
 if ! [[ "$MAX_CODE" =~ ^[0-9]+$ ]]; then
     echo "MAX_CODE must be an integer" >&2
@@ -50,7 +49,7 @@ if ! systemctl --user show-environment >/dev/null 2>&1; then
     exit 1
 fi
 
-mkdir -p "$TEST_DIR" "$SYSTEMD_RUNTIME_DIR" "$SYSTEMD_USER_DIR"
+mkdir -p "$SYSTEMD_RUNTIME_DIR" "$SYSTEMD_USER_DIR"
 
 listener_pid=""
 created_units=()
@@ -117,7 +116,7 @@ for ((code = 0; code <= MAX_CODE; code++)); do
     printf -v chr '%b' "\\x${hex}"
 
     path="${TEST_DIR}/file_${code}_${chr}"
-    abs_path="${WORK_DIR}/${path}"
+    abs_path="$path"
 
     if (( code == 0 )); then
         ((skipped_count += 1))
