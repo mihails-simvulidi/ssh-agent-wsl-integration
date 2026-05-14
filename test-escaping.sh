@@ -140,7 +140,8 @@ exit 0
 EOF
     chmod +x "$path"
 
-    exec_addr_unit="$(escape_for_systemd_execstart_socat_exec "$abs_path")"
+    escape_for_socat_exec_var abs_path_escaped "$abs_path"
+    exec_addr_unit="$(escape_for_systemd_execstart "EXEC:${abs_path_escaped}")"
     connect_addr_unit="$(escape_for_systemd_execstart "UNIX-CONNECT:${SOCKET_PATH}")"
 
     unit_name="${SYSTEMD_PREFIX}-${code}.service"

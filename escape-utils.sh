@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 hex_escape_bytes() {
     local input="$1"
     local hexbytes=""
@@ -14,12 +12,13 @@ hex_escape_bytes() {
     printf '%s' "$out"
 }
 
-escape_for_socat_exec() {
-    local input="$1"
+escape_for_socat_exec_var() {
+    local out_var="$1"
+    local input="$2"
     local escaped=""
     local i ch
 
-    # Escape for socat's EXEC parser.
+    # Assigned directly to a variable so trailing newlines are preserved (command substitution strips them).
     for ((i = 0; i < ${#input}; i++)); do
         ch="${input:i:1}"
         case "$ch" in
@@ -38,7 +37,7 @@ escape_for_socat_exec() {
         esac
     done
 
-    printf '%s' "$escaped"
+    printf -v "$out_var" '%s' "$escaped"
 }
 
 escape_for_systemd_execstart() {
@@ -58,20 +57,4 @@ escape_for_systemd_execstart() {
     done
 
     printf '%s' "$out"
-}
-
-escape_for_systemd_execstart_socat_exec() {
-    local input="$1"
-    local socat_exec_arg=""
-
-    socat_exec_arg="EXEC:$(escape_for_socat_exec "$input"; printf '.')"
-    socat_exec_arg="${socat_exec_arg%.}"
-
-    local arg
-    for arg in "${@:2}"; do
-        socat_exec_arg+=" $(escape_for_socat_exec "$arg"; printf '.')"
-        socat_exec_arg="${socat_exec_arg%.}"
-    done
-
-    escape_for_systemd_execstart "$socat_exec_arg"
 }

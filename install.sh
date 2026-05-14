@@ -21,9 +21,11 @@ if ! command -v socat >/dev/null 2>&1; then
     exit 1
 fi
 
+escape_for_socat_exec_var npiperelay_exe_escaped "$npiperelay_exe_path"
+
 cat <<EOF > "$systemddir/relay-ssh-agent.service"
 [Service]
-ExecStart=socat -dd $(escape_for_systemd_execstart_socat_exec "$npiperelay_exe_path" -ei -s -v //./pipe/openssh-ssh-agent) $(escape_for_systemd_execstart "UNIX-LISTEN:%t/ssh-agent.socket,fork")
+ExecStart=socat -dd $(escape_for_systemd_execstart "UNIX-LISTEN:%t/ssh-agent.socket,fork") $(escape_for_systemd_execstart "EXEC:${npiperelay_exe_escaped} -ei -s -v //./pipe/openssh-ssh-agent,nofork")
 Restart=on-failure
 
 [Install]
