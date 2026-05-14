@@ -23,7 +23,7 @@ fi
 
 cat <<EOF > "$systemddir/relay-ssh-agent.service"
 [Service]
-ExecStart=socat -dd $(escape_for_systemd_execstart_socat_exec "$npiperelay_exe_path" -p -v //./pipe/openssh-ssh-agent) $(escape_for_systemd_execstart "UNIX-LISTEN:%t/ssh-agent.socket,fork")
+ExecStart=socat -dd $(escape_for_systemd_execstart_socat_exec "$npiperelay_exe_path" -ei -s -v //./pipe/openssh-ssh-agent) $(escape_for_systemd_execstart "UNIX-LISTEN:%t/ssh-agent.socket,fork")
 Restart=on-failure
 
 [Install]
